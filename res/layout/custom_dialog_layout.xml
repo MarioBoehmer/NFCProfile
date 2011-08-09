@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="match_parent"
+	android:minWidth="280dp" android:layout_height="wrap_content">
+	<com.blogspot.marioboehmer.nfcprofile.OutlinedTextView
+		xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/title"
+		android:background="@drawable/background_gradient"
+		android:layout_width="match_parent" android:layout_height="wrap_content"
+		android:gravity="center" android:textSize="18sp" android:height="35dp" />
+	<LinearLayout android:id="@+id/content"
+		android:background="@drawable/background_gradient"
+		android:orientation="vertical" android:gravity="center"
+		android:paddingTop="20dp" android:paddingBottom="20dp"
+		android:layout_width="match_parent" android:layout_height="wrap_content"/>
+	<LinearLayout android:orientation="horizontal"
+		android:background="@drawable/background_gradient"
+		android:layout_width="match_parent" android:layout_height="wrap_content">
+		<Button android:id="@+id/okButton" android:layout_marginTop="3dip"
+			android:layout_weight="1" android:background="@drawable/button_default_selector"
+			android:singleLine="true" style="@style/text_medium"/>
+		<Button android:id="@+id/cancelButton" android:background="@drawable/button_default_selector"
+			android:layout_marginTop="3dip"
+			android:layout_weight="1" style="@style/text_medium"
+			android:singleLine="true" />
+	</LinearLayout>
+</LinearLayout>

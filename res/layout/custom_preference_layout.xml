@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="match_parent" android:layout_width="match_parent"
+	android:background="@drawable/background_gradient">
+	<include layout="@layout/header" android:layout_alignParentTop="true"
+		android:id="@+id/header" />
+	<ListView android:layout_below="@id/header"
+		android:listSelector="@drawable/list_gradient_selector" android:id="@android:id/list"
+		android:layout_width="match_parent" android:cacheColorHint="@color/light_blue_fading_edge"
+		android:layout_height="match_parent" />
+
+</RelativeLayout>
+

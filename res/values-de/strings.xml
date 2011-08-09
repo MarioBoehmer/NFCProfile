@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NFC Profil</string>
+    <string name="title_write_nfc_tag">Profil auf NFC-Tag schreiben</string>
+    <string name="title_toggle_preference_wifi">WiFi ein-/ausschalten</string>
+    <string name="title_toggle_preference_ringer">Klingelton ein/stumm</string>
+    <string name="title_toggle_preference_alarm">Alarm im Tagmodus einschalten</string>
+    <string name="title_preference_alarm_time">Alarmzeit einstellen</string>
+    <string name="title_preference_day_time">Tag Zeit einstellen</string>
+    <string name="title_preference_night_time">Nacht Zeit einstellen</string>
+    <string name="summary_write_nfc_tag">Schreibt Daten zur Profilaktivierung auf ein NFC-Tag</string>
+    <string name="summary_toggle_preference_wifi">Schaltet WiFi ein oder aus wenn NFC-Tag erkannt wird</string>
+    <string name="summary_toggle_preference_ringer">Schaltet Klingelton ein oder stumm wenn NFC-Tag erkannt wird</string>
+    <string name="summary_toggle_preference_alarm">Schaltet im Tagmodus den Alarm ein wenn NFC-Tag erkannt wird</string>
+    <string name="summary_preference_alarm_time">Zeiteinstellungen für Alarm</string>
+    <string name="summary_preference_day_time">Einstellungen für Tag Zeit</string>
+    <string name="summary_preference_night_time">Einstellungen für Nacht Zeit</string>
+    <string name="nfc_alarm_title">NFC Alarm</string>
+    <string name="toggle_notification_day_time">NFC-Tag hat ihr Gerät in den Tag Modus versetzt!</string>
+    <string name="toggle_notification_night_time">NFC-Tag hat ihr Gerät in den Nacht Modus versetzt</string>
+    <string name="nfc_writer_waiting">Bitte berühren Sie ein NFC-Tag zum beschreiben.</string>
+    <string name="nfc_writer_success">Ihr Profil wurde auf das NFC-Tag geschrieben.</string>
+    <string name="nfc_writer_error">Beschreiben des NFC-Tag fehlgeschlagen.</string>
+    <string name="feedback">Feedback</string>
+    <string name="feedback_mail_address">feedback.devorama.nfcprofile@googlemail.com</string>
+    <string name="nfc_disabled_message">Ihr NFC Adapter scheint momentan deaktiviert zu sein. Möchten Sie ihn aktivieren?</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+    <string name="info">Info</string>
+    <string name="info_text">&lt;strong>NFC Profil&lt;/strong> ist lizensert unter einer &lt;strong>Creative Commons 3.0 Attribution-NonCommercial-ShareAlike Lizenz&lt;/strong> durch Mario Böhmer&lt;br/>&lt;br/>
+    Der Lizenzinhalt ist zu finden unter <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">http://creativecommons.org/licenses/by-nc-sa/3.0/</a>.&lt;br/>&lt;br/>&lt;br/>
+    &lt;u>Benutzte Ressourcen&lt;/u>&lt;br/>&lt;br/>
+    My Site My Way&lt;br/>Blue Chrome Rain Icons&lt;br/><a href="http://icons.mysitemyway.com/">http://icons.mysitemyway.com/</a>&lt;br/>&lt;br/>
+    The Freesound Project&lt;br/>error2 von chrisw92 lizensiert unter einer Creative Commons Sampling Plus 1.0 Lizenz.&lt;br/>
+    <a href="http://creativecommons.org/licenses/sampling+/1.0/">http://creativecommons.org/licenses/sampling+/1.0/</a>&lt;br/>
+    <a href="http://www.freesound.org/samplesViewSingle.php?id=110931">http://www.freesound.org/samplesViewSingle.php?id=110931</a>&lt;br/>&lt;br/>
+    The Freesound Project&lt;br/>success von grunz lizensiert unter einer Creative Commons Sampling Plus 1.0 Lizenz.&lt;br/>
+    <a href="http://creativecommons.org/licenses/sampling+/1.0/">http://creativecommons.org/licenses/sampling+/1.0/</a>&lt;br/>
+    <a href="http://www.freesound.org/samplesViewSingle.php?id=109662">http://www.freesound.org/samplesViewSingle.php?id=109662</a>
+    </string>
+    
+</resources>

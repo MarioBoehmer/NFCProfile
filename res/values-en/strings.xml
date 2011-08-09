@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NFC Profile</string>
+    <string name="title_write_nfc_tag">Write Profile to NFC tag</string>
+    <string name="title_toggle_preference_wifi">Enable/Disable WiFi</string>
+    <string name="title_toggle_preference_ringer">Normal/Silent Ringer</string>
+    <string name="title_toggle_preference_alarm">Set AlarmClock in day mode</string>
+    <string name="title_preference_alarm_time">Set Alarm Time</string>
+    <string name="title_preference_day_time">Set Day Time</string>
+    <string name="title_preference_night_time">Set Night Time</string>
+    <string name="summary_write_nfc_tag">Writes a trigger for this profile to a NFC tag</string>
+    <string name="summary_toggle_preference_wifi">Enables or disables the WiFi on tag detection</string>
+    <string name="summary_toggle_preference_ringer">Sets the ringer to normal or silent mode on tag detection</string>
+    <string name="summary_toggle_preference_alarm">Sets the AlarmClock on tag detection in day mode</string>
+    <string name="summary_preference_alarm_time">Sets a time for the alarm clock</string>
+    <string name="summary_preference_day_time">Configures beginning of daytime</string>
+    <string name="summary_preference_night_time">Configures beginning of nighttime</string>
+    <string name="nfc_alarm_title">NFC toggled alarm</string>
+    <string name="toggle_notification_day_time">NFC tag toggled your device to day time mode!</string>
+    <string name="toggle_notification_night_time">NFC tag toggled your device to night time mode!</string>
+    <string name="nfc_writer_waiting">Please tap a NFC tag to write to.</string>
+    <string name="nfc_writer_success">Profile has been written to your NFC tag.</string>
+    <string name="nfc_writer_error">Writing to your NFC tag has failed.</string>
+    <string name="feedback">Feedback</string>
+    <string name="feedback_mail_address">feedback.devorama.nfcprofile@googlemail.com</string>
+    <string name="nfc_disabled_message">It seems that your NFC adapter is currently disabled. Do you want to activate it?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="info">Info</string>
+    <string name="info_text">&lt;strong>NFC Profile&lt;/strong> is licensed under a &lt;strong>Creative Commons 3.0 Attribution-NonCommercial-ShareAlike License&lt;/strong> by Mario Böhmer&lt;br/>&lt;br/>
+    You may obtain a copy of the License at <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">http://creativecommons.org/licenses/by-nc-sa/3.0/</a>.&lt;br/>&lt;br/>&lt;br/>
+    &lt;u>Resource Attribution&lt;/u>&lt;br/>&lt;br/>
+    My Site My Way&lt;br/>Blue Chrome Rain Icons&lt;br/><a href="http://icons.mysitemyway.com/">http://icons.mysitemyway.com/</a>&lt;br/>&lt;br/>
+    The Freesound Project&lt;br/>error2 by chrisw92 licensed under a Creative Commons Sampling Plus 1.0 License.&lt;br/>
+    <a href="http://creativecommons.org/licenses/sampling+/1.0/">http://creativecommons.org/licenses/sampling+/1.0/</a>&lt;br/>
+    <a href="http://www.freesound.org/samplesViewSingle.php?id=110931">http://www.freesound.org/samplesViewSingle.php?id=110931</a>&lt;br/>&lt;br/>
+    The Freesound Project&lt;br/>success by grunz licensed under a Creative Commons Sampling Plus 1.0 License.&lt;br/>
+    <a href="http://creativecommons.org/licenses/sampling+/1.0/">http://creativecommons.org/licenses/sampling+/1.0/</a>&lt;br/>
+    <a href="http://www.freesound.org/samplesViewSingle.php?id=109662">http://www.freesound.org/samplesViewSingle.php?id=109662</a>
+    </string>
+    
+</resources>
