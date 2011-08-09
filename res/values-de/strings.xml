@@ -27,7 +27,7 @@
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
     <string name="info">Info</string>
-    <string name="info_text">&lt;strong>NFC Profil&lt;/strong> ist lizensert unter einer &lt;strong>Creative Commons 3.0 Attribution-NonCommercial-ShareAlike Lizenz&lt;/strong> durch Mario Böhmer&lt;br/>&lt;br/>
+    <string name="info_text">&lt;strong>NFC Profil&lt;/strong> ist lizensiert unter einer &lt;strong>Creative Commons 3.0 Attribution-NonCommercial-ShareAlike Lizenz&lt;/strong> durch Mario Böhmer&lt;br/>&lt;br/>
     Der Lizenzinhalt ist zu finden unter <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">http://creativecommons.org/licenses/by-nc-sa/3.0/</a>.&lt;br/>&lt;br/>
     Die Projektdateien sind zu finden unter <a href="https://github.com/MarioBoehmer/NFCProfile">https://github.com/MarioBoehmer/NFCProfile</a>&lt;br/>&lt;br/>&lt;br/>
     &lt;u>Benutzte Ressourcen&lt;/u>&lt;br/>&lt;br/>
