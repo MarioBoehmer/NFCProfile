@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
@@ -33,6 +34,12 @@ import android.widget.Toast;
 public class NFCProfileManager extends Activity {
 
 	private SimpleDateFormat parser = new SimpleDateFormat("HH:mm");
+	private boolean isDayTime = true;
+	private boolean manageWifi;
+	private boolean manageBluetooth;
+	private boolean manageRinger;
+	private boolean manageAlarm;
+	private String alarmTime;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +47,62 @@ public class NFCProfileManager extends Activity {
 		getWindow().setFeatureInt(Window.FEATURE_NO_TITLE, 0);
 		getWindow().setBackgroundDrawable(
 				new ColorDrawable(android.R.color.transparent));
+		readPreferences();
+		if (manageWifi) {
+			WifiManager wifimgr = (WifiManager) getSystemService(WIFI_SERVICE);
+			if (wifimgr != null) {
+				if (wifimgr.isWifiEnabled() && !isDayTime) {
+					wifimgr.setWifiEnabled(false);
+				} else if (!wifimgr.isWifiEnabled() && isDayTime) {
+					wifimgr.setWifiEnabled(true);
+				}
+			}
+		}
+		if (manageBluetooth) {
+			BluetoothAdapter bluetoothAdapter = BluetoothAdapter
+					.getDefaultAdapter();
+			if (bluetoothAdapter != null) {
+				if (bluetoothAdapter.isEnabled() && !isDayTime) {
+					bluetoothAdapter.disable();
+				} else if (!bluetoothAdapter.isEnabled() && isDayTime) {
+					bluetoothAdapter.enable();
+				}
+			}
+		}
+		if (manageRinger) {
+			AudioManager audiomgr = (AudioManager) getSystemService(AUDIO_SERVICE);
+			if (audiomgr != null) {
+				if ((audiomgr.getRingerMode() != AudioManager.RINGER_MODE_SILENT)
+						&& !isDayTime) {
+					audiomgr.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+				} else if ((audiomgr.getRingerMode() != AudioManager.RINGER_MODE_NORMAL)
+						&& isDayTime) {
+					audiomgr.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+				}
+			}
+		}
+		if (manageAlarm && !isDayTime) {
+			if (!TextUtils.isEmpty(alarmTime) && alarmTime.contains(":")) {
+				int hour = Integer.parseInt(alarmTime.split(":")[0]);
+				int minutes = Integer.parseInt(alarmTime.split(":")[1]);
+				Intent i = new Intent(AlarmClock.ACTION_SET_ALARM);
+				i.putExtra(AlarmClock.EXTRA_MESSAGE,
+						getResources().getString(R.string.nfc_alarm_title));
+				i.putExtra(AlarmClock.EXTRA_HOUR, hour);
+				i.putExtra(AlarmClock.EXTRA_MINUTES, minutes);
+				startActivity(i);
+			}
+		}
+		int toastId = isDayTime ? R.string.toggle_notification_day_time
+				: R.string.toggle_notification_night_time;
+		Toast.makeText(this, toastId, Toast.LENGTH_SHORT).show();
+		finish();
+	}
+
+	private void readPreferences() {
 		SharedPreferences preferences = getSharedPreferences(
 				"com.blogspot.marioboehmer.nfcprofile_preferences",
 				MODE_PRIVATE);
-		boolean isDayTime = true;
 		try {
 			Date daytime = parser.parse(preferences.getString(
 					"daytime_preference", "06:00"));
@@ -58,44 +117,10 @@ public class NFCProfileManager extends Activity {
 					&& currentTime.before(nighttime);
 		} catch (ParseException e) {
 		}
-		boolean manageWifi = preferences.getBoolean("wifi_preference", false);
-		if (manageWifi) {
-			WifiManager wifimgr = (WifiManager) getSystemService(WIFI_SERVICE);
-			if (wifimgr.isWifiEnabled() && !isDayTime) {
-				wifimgr.setWifiEnabled(false);
-			} else if (!wifimgr.isWifiEnabled() && isDayTime) {
-				wifimgr.setWifiEnabled(true);
-			}
-		}
-		boolean manageRinger = preferences.getBoolean("ringer_preference",
-				false);
-		if (manageRinger) {
-			AudioManager audiomgr = (AudioManager) getSystemService(AUDIO_SERVICE);
-			if ((audiomgr.getRingerMode() != AudioManager.RINGER_MODE_SILENT)
-					&& !isDayTime) {
-				audiomgr.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-			} else if ((audiomgr.getRingerMode() != AudioManager.RINGER_MODE_NORMAL)
-					&& isDayTime) {
-				audiomgr.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-			}
-		}
-		boolean manageAlarm = preferences.getBoolean("alarm_preference", false);
-		if (manageAlarm && !isDayTime) {
-			String time = preferences.getString("alarm_time_preference", null);
-			if (!TextUtils.isEmpty(time) && time.contains(":")) {
-				int hour = Integer.parseInt(time.split(":")[0]);
-				int minutes = Integer.parseInt(time.split(":")[1]);
-				Intent i = new Intent(AlarmClock.ACTION_SET_ALARM);
-				i.putExtra(AlarmClock.EXTRA_MESSAGE,
-						getResources().getString(R.string.nfc_alarm_title));
-				i.putExtra(AlarmClock.EXTRA_HOUR, hour);
-				i.putExtra(AlarmClock.EXTRA_MINUTES, minutes);
-				startActivity(i);
-			}
-		}
-		int toastId = isDayTime ? R.string.toggle_notification_day_time
-				: R.string.toggle_notification_night_time;
-		Toast.makeText(this, toastId, Toast.LENGTH_SHORT).show();
-		finish();
+		manageWifi = preferences.getBoolean("wifi_preference", false);
+		manageBluetooth = preferences.getBoolean("bluetooth_preference", false);
+		manageRinger = preferences.getBoolean("ringer_preference", false);
+		manageAlarm = preferences.getBoolean("alarm_preference", false);
+		alarmTime = preferences.getString("alarm_time_preference", null);
 	}
 }

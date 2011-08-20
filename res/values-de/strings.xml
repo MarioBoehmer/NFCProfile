@@ -3,6 +3,7 @@
     <string name="app_name">NFC Profil</string>
     <string name="title_write_nfc_tag">Profil auf NFC-Tag schreiben</string>
     <string name="title_toggle_preference_wifi">WiFi ein-/ausschalten</string>
+    <string name="title_toggle_preference_bluetooth">Bluetooth ein-/ausschalten</string>
     <string name="title_toggle_preference_ringer">Klingelton ein/stumm</string>
     <string name="title_toggle_preference_alarm">Alarm im Tagmodus einschalten</string>
     <string name="title_preference_alarm_time">Alarmzeit einstellen</string>
@@ -10,6 +11,7 @@
     <string name="title_preference_night_time">Nacht Zeit einstellen</string>
     <string name="summary_write_nfc_tag">Schreibt Daten zur Profilaktivierung auf ein NFC-Tag</string>
     <string name="summary_toggle_preference_wifi">Schaltet WiFi ein oder aus wenn NFC-Tag erkannt wird</string>
+    <string name="summary_toggle_preference_bluetooth">Schaltet Bluetooth ein oder aus wenn NFC-Tag erkannt wird</string>
     <string name="summary_toggle_preference_ringer">Schaltet Klingelton ein oder stumm wenn NFC-Tag erkannt wird</string>
     <string name="summary_toggle_preference_alarm">Schaltet im Tagmodus den Alarm ein wenn NFC-Tag erkannt wird</string>
     <string name="summary_preference_alarm_time">Zeiteinstellungen für Alarm</string>
