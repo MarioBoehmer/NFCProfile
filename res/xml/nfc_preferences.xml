@@ -1,37 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-	<PreferenceScreen android:title="@string/title_write_nfc_tag"
-		android:summary="@string/summary_write_nfc_tag" android:layout="@layout/custom_preference_item">
-		<intent android:action="com.blogspot.marioboehmer.nfcprofile.nfcwriter" />
-	</PreferenceScreen>
-	<com.blogspot.marioboehmer.nfcprofile.TimePreference
-		android:key="day_time_preference" android:title="@string/title_preference_day_time"
-		android:summary="@string/summary_preference_day_time"
-		android:widgetLayout="@layout/custom_dialog_icon"
-		android:defaultValue="06:00" android:layout="@layout/custom_preference_item" />
-	<com.blogspot.marioboehmer.nfcprofile.TimePreference
-		android:key="night_time_preference" android:title="@string/title_preference_night_time"
-		android:summary="@string/summary_preference_night_time"
-		android:widgetLayout="@layout/custom_dialog_icon"
-		android:defaultValue="18:00" android:layout="@layout/custom_preference_item" />
-	<CheckBoxPreference android:key="wifi_preference"
-		android:selectable="true" android:layout="@layout/custom_preference_item"
-		android:widgetLayout="@layout/custom_checkbox" android:title="@string/title_toggle_preference_wifi"
-		android:summary="@string/summary_toggle_preference_wifi" />
-	<CheckBoxPreference android:key="bluetooth_preference"
-		android:selectable="true" android:layout="@layout/custom_preference_item"
-		android:widgetLayout="@layout/custom_checkbox" android:title="@string/title_toggle_preference_bluetooth"
-		android:summary="@string/summary_toggle_preference_bluetooth" />
-	<CheckBoxPreference android:key="ringer_preference"
-		android:layout="@layout/custom_preference_item" android:title="@string/title_toggle_preference_ringer"
-		android:widgetLayout="@layout/custom_checkbox" android:summary="@string/summary_toggle_preference_ringer" />
-	<CheckBoxPreference android:key="alarm_preference"
-		android:layout="@layout/custom_preference_item" android:title="@string/title_toggle_preference_alarm"
-		android:widgetLayout="@layout/custom_checkbox" android:summary="@string/summary_toggle_preference_alarm" />
-	<com.blogspot.marioboehmer.nfcprofile.TimePreference
-		android:key="alarm_time_preference" android:title="@string/title_preference_alarm_time"
-		android:summary="@string/summary_preference_alarm_time"
-		android:widgetLayout="@layout/custom_dialog_icon" android:dependency="alarm_preference"
-		android:layout="@layout/custom_preference_item" />
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <CheckBoxPreference
+        android:key="airplane_mode_preference"
+        android:layout="@layout/custom_preference_item"
+        android:selectable="true"
+        android:summary="@string/summary_toggle_preference_airplane_mode"
+        android:title="@string/title_toggle_preference_airplane_mode"
+        android:widgetLayout="@layout/custom_checkbox" />
+
+    <CheckBoxPreference
+        android:key="wifi_preference"
+        android:layout="@layout/custom_preference_item"
+        android:selectable="true"
+        android:summary="@string/summary_toggle_preference_wifi"
+        android:title="@string/title_toggle_preference_wifi"
+        android:widgetLayout="@layout/custom_checkbox" />
+
+    <CheckBoxPreference
+        android:key="bluetooth_preference"
+        android:layout="@layout/custom_preference_item"
+        android:selectable="true"
+        android:summary="@string/summary_toggle_preference_bluetooth"
+        android:title="@string/title_toggle_preference_bluetooth"
+        android:widgetLayout="@layout/custom_checkbox" />
+
+    <CheckBoxPreference
+        android:key="ringer_preference"
+        android:layout="@layout/custom_preference_item"
+        android:summary="@string/summary_toggle_preference_ringer"
+        android:title="@string/title_toggle_preference_ringer"
+        android:widgetLayout="@layout/custom_checkbox" />
+
+    <CheckBoxPreference
+        android:key="alarm_preference"
+        android:layout="@layout/custom_preference_item"
+        android:summary="@string/summary_toggle_preference_alarm"
+        android:title="@string/title_toggle_preference_alarm"
+        android:widgetLayout="@layout/custom_checkbox" />
+
+    <com.blogspot.marioboehmer.nfcprofile.TimePreference
+        android:dependency="alarm_preference"
+        android:key="alarm_time_preference"
+        android:layout="@layout/custom_preference_item"
+        android:summary="@string/summary_preference_alarm_time"
+        android:title="@string/title_preference_alarm_time"
+        android:widgetLayout="@layout/custom_dialog_icon" />
+
+    <CheckBoxPreference
+        android:key="start_external_app_preference"
+        android:layout="@layout/custom_preference_item"
+        android:summary="@string/summary_toggle_preference_start_external_app"
+        android:title="@string/title_toggle_preference_start_external_app"
+        android:widgetLayout="@layout/custom_checkbox" />
+    
+     <com.blogspot.marioboehmer.nfcprofile.SingleChoiceListPreference
+         android:key="external_app_package_name"
+        android:dependency="start_external_app_preference"
+        android:layout="@layout/custom_preference_item"
+        android:summary="@string/summary_preference_external_app_package_name"
+        android:title="@string/title_preference_external_app_package_name"
+        android:widgetLayout="@layout/custom_dialog_icon" />
 
 </PreferenceScreen>

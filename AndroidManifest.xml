@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.blogspot.marioboehmer.nfcprofile" android:versionCode="2"
-	android:versionName="1.1">
+	package="com.blogspot.marioboehmer.nfcprofile" android:versionCode="3"
+	android:versionName="2.0">
 
 	<uses-permission android:name="android.permission.NFC" />
 	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 	<uses-permission android:name="android.permission.BLUETOOTH" />
 	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+	<uses-permission android:name="android.permission.WRITE_SETTINGS" />
 	<uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+	<uses-sdk android:minSdkVersion="10" android:targetSdkVersion="14"/>
+	<uses-feature android:name="android.hardware.nfc"
+		android:required="true" />
 	<application android:icon="@drawable/icon" android:label="@string/app_name">
 		<activity android:name=".NFCProfileManager"
 			android:theme="@android:style/Theme.Translucent.NoTitleBar">
 			<intent-filter>
 				<action android:name="android.nfc.action.NDEF_DISCOVERED" />
-				<data android:scheme="nfcprofile" android:host="com.blogspot.marioboehmer"
-					android:path="/dayandnight"/>
+				<data android:scheme="nfcprofile" android:host="com.blogspot.marioboehmer" />
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 		</activity>
-		<activity android:name=".NFCProfilePreferencesActivity"
-			android:theme="@style/preference_screen">
+		<activity android:name=".NFCProfilePreferencesActivity"	android:theme="@style/AppTheme">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name=".NFCWriterActivity" android:theme="@style/preference_screen">
+		<activity android:name=".NFCWriterActivity" android:theme="@style/AppTheme">
 			<intent-filter>
 				<action android:name="com.blogspot.marioboehmer.nfcprofile.nfcwriter" />
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 		</activity>
-		<activity android:name=".InfoActivity" android:theme="@style/preference_screen"/>
+		<activity android:name=".InfoActivity" android:theme="@style/AppTheme"/>
 
 	</application>
-	<uses-sdk android:minSdkVersion="10" />
-	<uses-feature android:name="android.hardware.nfc"
-		android:required="true" />
+	
 </manifest>

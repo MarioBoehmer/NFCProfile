@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_height="match_parent" android:layout_width="match_parent"
 	android:background="@drawable/background_gradient">
-	<include layout="@layout/header" />
 	<TextView android:id="@+id/nfc_writer_message"
 		android:layout_centerInParent="true" style="@style/text_medium"
 		android:layout_width="match_parent" android:layout_height="wrap_content"

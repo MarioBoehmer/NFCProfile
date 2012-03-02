@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<style name="text_medium" parent="@android:style/TextAppearance.Medium">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:textColor">@color/light_blue</item>
+	</style>
+	<style name="text_small" parent="@android:style/TextAppearance.Small">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:textColor">@color/black</item>
+	</style>
+	<style name="text_small_blue" parent="@android:style/TextAppearance.Small">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:textColor">@color/light_blue</item>
+	</style>
+	<style name="AppTheme" parent="android:style/Theme.Holo.Light">
+		<item name="android:actionBarStyle">@style/ActionBar</item>
+		<item name="android:windowContentOverlay">@drawable/actionbar_shadow</item>
+	</style>
+	<style name="ActionBar" parent="android:style/Widget.Holo.Light.ActionBar">
+		<item name="android:background">#eee</item>
+		<item name="android:titleTextStyle">@style/ActionBarTitle</item>
+		<item name="android:icon">@drawable/icon</item>
+	</style>
+
+	<style name="ActionBarTitle"
+		parent="android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+		<item name="android:textColor">@color/actionbar_title_color</item>
+	</style>
+
+</resources>

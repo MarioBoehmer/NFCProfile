@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/write_to_tag" android:icon="@drawable/tag"
+		android:title="@string/title_write_nfc_tag" android:showAsAction="always|withText"
+		android:orderInCategory="0" />
 	<item android:id="@+id/feedback" android:icon="@drawable/feedback"
-		android:title="@string/feedback" />
+		android:title="@string/feedback" android:showAsAction="never"
+		android:orderInCategory="1" />
 	<item android:id="@+id/info" android:icon="@drawable/info"
-		android:title="@string/info" />
+		android:title="@string/info" android:showAsAction="never"
+		android:orderInCategory="2" />
 </menu>

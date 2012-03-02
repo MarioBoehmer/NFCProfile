@@ -1,4 +1,4 @@
-/*   Copyright 2011 Mario Böhmer
+/*   Copyright 2012 Mario Böhmer
  *
  *   Licensed under Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0) 
  *   you may not use this file except in compliance with the License.
@@ -11,11 +11,12 @@ package com.blogspot.marioboehmer.nfcprofile;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentFilter.MalformedMimeTypeException;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.media.MediaPlayer;
 import android.nfc.FormatException;
 import android.nfc.NdefMessage;
@@ -30,19 +31,23 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.blogspot.marioboehmer.nfcprofile.actionbar.ActionBarActivity;
+import com.blogspot.marioboehmer.nfcprofile.profile.Profile;
+import com.blogspot.marioboehmer.nfcprofile.profile.ProfileHelper;
+
 /**
- * {@link NFCWriterActivity} writes an URI Intent trigger for the NFC profile to
- * a NFC tag.
+ * {@link NFCWriterActivity} writes an URI Intent trigger for a specified NFC
+ * profile to a NFC tag.
  * 
  * @author Mario Boehmer
  */
-public class NFCWriterActivity extends Activity {
+public class NFCWriterActivity extends ActionBarActivity {
 
 	private IntentFilter[] intentFiltersArray;
 	private String[][] techListsArray;
 	private NfcAdapter mAdapter;
 	private PendingIntent pendingIntent;
-	private static final String URI = "nfcprofile://com.blogspot.marioboehmer/dayandnight";
+	private static final String URI = "nfcprofile://com.blogspot.marioboehmer/profile?";
 	private TextView nfcWriterMessage;
 	private ProgressBar progressbar;
 	private static final byte NO_PREFIX = 0x00;
@@ -64,7 +69,7 @@ public class NFCWriterActivity extends Activity {
 		intentFiltersArray = new IntentFilter[] { ndef };
 		techListsArray = new String[][] { new String[] { Ndef.class.getName() } };
 		mAdapter = NfcAdapter.getDefaultAdapter(this);
-		if (mAdapter == null) {
+		if (mAdapter == null || !mAdapter.isEnabled()) {
 			finish();
 		}
 	}
@@ -90,7 +95,22 @@ public class NFCWriterActivity extends Activity {
 			protected Boolean doInBackground(Intent... params) {
 				boolean success = false;
 				try {
-					success = writeUriToTag(params[0], URI);
+					SharedPreferences sharedPreferences = getSharedPreferences(
+							getString(R.string.shared_preferences_name),
+							MODE_PRIVATE);
+					Profile profile = ProfileHelper
+							.getProfileFromPreferences(sharedPreferences);
+					String profileURISuffix = ProfileHelper
+							.getProfileURLSuffix(profile);
+					success = writeUriToTag(params[0], URI + profileURISuffix);
+					if (success) {
+						String tagWrittenCountKey = getString(R.string.tag_written_count_preference_key);
+						int tagWrittenCount = sharedPreferences.getInt(
+								tagWrittenCountKey, 0) + 1;
+						Editor editor = sharedPreferences.edit();
+						editor.putInt(tagWrittenCountKey, tagWrittenCount);
+						editor.commit();
+					}
 				} catch (IOException e) {
 				} catch (FormatException e) {
 				}
@@ -130,7 +150,8 @@ public class NFCWriterActivity extends Activity {
 	private boolean writeUriToTag(Intent intent, String uri)
 			throws IOException, FormatException {
 		String action = intent.getAction();
-		if (NfcAdapter.ACTION_TECH_DISCOVERED.equals(action)) {
+		if (NfcAdapter.ACTION_TECH_DISCOVERED.equals(action)
+				|| NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
 			Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 			Ndef ndef = Ndef.get(tag);
 			final byte[] data = concatByteArrays(new byte[] { NO_PREFIX },

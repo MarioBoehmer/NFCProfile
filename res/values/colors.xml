@@ -8,5 +8,6 @@
     <color name="white_end">#DDDDDD</color>
     <color name="grey_start">#BCBCBC</color>  
     <color name="grey_mid">#777777</color>   
-    <color name="grey_end">#464646</color>   
+    <color name="grey_end">#464646</color> 
+    <color name="actionbar_title_color">#224894</color>  
 </resources>

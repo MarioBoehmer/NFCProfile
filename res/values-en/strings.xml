@@ -1,33 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">NFC Profile</string>
-    <string name="title_write_nfc_tag">Write Profile to NFC tag</string>
+    <string name="title_dialog_nfc_off">Enable NFC</string>
+    <string name="title_dialog_ask_for_rating">Rate this App!</string>
+    <string name="title_write_nfc_tag">Write Tag</string>
     <string name="title_toggle_preference_wifi">Enable/Disable WiFi</string>
     <string name="title_toggle_preference_bluetooth">Enable/Disable Bluetooth</string>
+    <string name="title_toggle_preference_airplane_mode">Enable/Disable Airplane Mode</string>
     <string name="title_toggle_preference_ringer">Normal/Silent Ringer</string>
-    <string name="title_toggle_preference_alarm">Set AlarmClock in day mode</string>
+    <string name="title_toggle_preference_alarm">Enable Alarm</string>
     <string name="title_preference_alarm_time">Set Alarm Time</string>
-    <string name="title_preference_day_time">Set Day Time</string>
-    <string name="title_preference_night_time">Set Night Time</string>
-    <string name="summary_write_nfc_tag">Writes a trigger for this profile to a NFC tag</string>
+    <string name="title_toggle_preference_start_external_app">Enable launching App</string>
+    <string name="title_preference_external_app_package_name">Choose App</string>
     <string name="summary_toggle_preference_wifi">Enables or disables WiFi on tag detection</string>
     <string name="summary_toggle_preference_bluetooth">Enables or disables Bluetooth on tag detection</string>
+    <string name="summary_toggle_preference_airplane_mode">Enables or disables the Airplane Mode on tag detection</string>
     <string name="summary_toggle_preference_ringer">Sets the ringer to normal or silent mode on tag detection</string>
-    <string name="summary_toggle_preference_alarm">Sets the AlarmClock on tag detection in day mode</string>
-    <string name="summary_preference_alarm_time">Sets a time for the alarm clock</string>
-    <string name="summary_preference_day_time">Configures beginning of daytime</string>
-    <string name="summary_preference_night_time">Configures beginning of nighttime</string>
+    <string name="summary_toggle_preference_alarm">Enables the Alarm on tag detection</string>
+    <string name="summary_preference_alarm_time">Sets a time for the Alarm</string>
+    <string name="summary_toggle_preference_start_external_app">Enables launching an external App</string>
+    <string name="summary_preference_external_app_package_name">Choose App to be launched</string>
     <string name="nfc_alarm_title">NFC toggled alarm</string>
-    <string name="toggle_notification_day_time">NFC tag toggled your device to day time mode!</string>
-    <string name="toggle_notification_night_time">NFC tag toggled your device to night time mode!</string>
+    <string name="nfc_profile_executed_notification">NFC tag executed profile settings!</string>
     <string name="nfc_writer_waiting">Please tap a NFC tag to write to.</string>
     <string name="nfc_writer_success">Profile has been written to your NFC tag.</string>
     <string name="nfc_writer_error">Writing to your NFC tag has failed.</string>
     <string name="feedback">Feedback</string>
     <string name="feedback_mail_address">feedback.devorama.nfcprofile@googlemail.com</string>
     <string name="nfc_disabled_message">It seems that your NFC adapter is currently disabled. Do you want to activate it?</string>
+    <string name="ask_for_rating_message">Please rate this App if you like it.</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
     <string name="info">Info</string>
     <string name="info_text">&lt;strong>NFC Profile&lt;/strong> is licensed under a &lt;strong>Creative Commons 3.0 Attribution-NonCommercial-ShareAlike License&lt;/strong> by Mario Böhmer&lt;br/>&lt;br/>
     You may obtain a copy of the License at <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">http://creativecommons.org/licenses/by-nc-sa/3.0/</a>.&lt;br/>&lt;br/>
@@ -41,5 +46,5 @@
     <a href="http://creativecommons.org/licenses/sampling+/1.0/">http://creativecommons.org/licenses/sampling+/1.0/</a>&lt;br/>
     <a href="http://www.freesound.org/samplesViewSingle.php?id=109662">http://www.freesound.org/samplesViewSingle.php?id=109662</a>
     </string>
-    
+    <string name="content_description_dialog_icon">Dialog Button which opens a Dialog</string>
 </resources>

@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_height="match_parent" android:layout_width="match_parent"
-	android:background="@drawable/background_gradient">
-	<include layout="@layout/header" android:layout_alignParentTop="true"
-		android:id="@+id/header" />
-	<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-		android:layout_width="match_parent" android:layout_height="wrap_content"
-		android:layout_below="@id/header">
-		<LinearLayout android:layout_width="match_parent"
-			android:layout_height="wrap_content">
-			<TextView android:id="@+id/info_text" android:layout_width="match_parent"
-				android:layout_height="wrap_content" style="@style/text_small_blue"
-				android:layout_margin="10dp" android:autoLink="web" />
-		</LinearLayout>
-	</ScrollView>
-</RelativeLayout> 
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_gradient" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/info_text"
+            style="@style/text_small_blue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:autoLink="web" />
+    </LinearLayout>
+
+</ScrollView>

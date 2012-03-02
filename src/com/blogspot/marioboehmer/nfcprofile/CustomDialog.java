@@ -1,4 +1,4 @@
-/*   Copyright 2011 Mario Böhmer
+/*   Copyright 2012 Mario Böhmer
  *
  *   Licensed under Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0) 
  *   you may not use this file except in compliance with the License.
@@ -64,41 +64,23 @@ public class CustomDialog extends Dialog {
 			return this;
 		}
 
-		public Builder setPositiveButton(int positiveButtonText,
+		public void setPositiveButton(int positiveButtonText,
 				DialogInterface.OnClickListener listener) {
-			this.positiveButtonText = (String) context
-					.getText(positiveButtonText);
+			this.positiveButtonText = context.getString(positiveButtonText);
 			this.positiveButtonClickListener = listener;
-			return this;
 		}
 
-		public Builder setPositiveButton(String positiveButtonText,
+		public void setNegativeButton(int negativeButtonText,
 				DialogInterface.OnClickListener listener) {
-			this.positiveButtonText = positiveButtonText;
-			this.positiveButtonClickListener = listener;
-			return this;
-		}
-
-		public Builder setNegativeButton(int negativeButtonText,
-				DialogInterface.OnClickListener listener) {
-			this.negativeButtonText = (String) context
-					.getText(negativeButtonText);
+			this.negativeButtonText = context.getString(negativeButtonText);
 			this.negativeButtonClickListener = listener;
-			return this;
 		}
 
-		public Builder setNegativeButton(String negativeButtonText,
-				DialogInterface.OnClickListener listener) {
-			this.negativeButtonText = negativeButtonText;
-			this.negativeButtonClickListener = listener;
-			return this;
-		}
-
-		public CustomDialog create() {
+		public CustomDialog create(int layoutId) {
 			LayoutInflater inflater = LayoutInflater.from(context);
 			final CustomDialog dialog = new CustomDialog(context);
 			dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-			View layout = inflater.inflate(R.layout.custom_dialog_layout, null);
+			View layout = inflater.inflate(layoutId, null);
 			dialog.addContentView(layout, new LayoutParams(
 					LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 
@@ -125,7 +107,7 @@ public class CustomDialog extends Dialog {
 					((Button) layout.findViewById(R.id.cancelButton))
 							.setOnClickListener(new View.OnClickListener() {
 								public void onClick(View v) {
-									positiveButtonClickListener.onClick(dialog,
+									negativeButtonClickListener.onClick(dialog,
 											DialogInterface.BUTTON_NEGATIVE);
 								}
 							});
@@ -137,11 +119,9 @@ public class CustomDialog extends Dialog {
 				((LinearLayout) layout.findViewById(R.id.content))
 						.removeAllViews();
 				((LinearLayout) layout.findViewById(R.id.content)).addView(
-						contentView, new LayoutParams(
-								LayoutParams.WRAP_CONTENT,
+						contentView, new LayoutParams(LayoutParams.FILL_PARENT,
 								LayoutParams.WRAP_CONTENT));
 			}
-			dialog.setContentView(layout);
 			return dialog;
 		}
 	}

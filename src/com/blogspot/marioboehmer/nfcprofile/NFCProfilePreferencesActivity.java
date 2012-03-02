@@ -1,4 +1,4 @@
-/*   Copyright 2011 Mario Böhmer
+/*   Copyright 2012 Mario Böhmer
  *
  *   Licensed under Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0) 
  *   you may not use this file except in compliance with the License.
@@ -8,21 +8,23 @@
  */
 package com.blogspot.marioboehmer.nfcprofile;
 
-import android.app.AlertDialog;
+import java.util.List;
+
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.nfc.NfcAdapter;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.provider.Settings;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.blogspot.marioboehmer.nfcprofile.actionbar.ActionBarPreferenceActivity;
 
 /**
  * {@link NFCProfilePreferencesActivity} displays the preferences which can be
@@ -30,7 +32,7 @@ import android.view.MenuItem;
  * 
  * @author Mario Boehmer
  */
-public class NFCProfilePreferencesActivity extends PreferenceActivity {
+public class NFCProfilePreferencesActivity extends ActionBarPreferenceActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +44,14 @@ public class NFCProfilePreferencesActivity extends PreferenceActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+
+		// check if NFC adapter is enabled
 		new AsyncTask<Void, Void, Boolean>() {
 
 			@Override
 			protected Boolean doInBackground(Void... params) {
-				NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter();
+				NfcAdapter nfcAdapter = NfcAdapter
+						.getDefaultAdapter(getApplicationContext());
 				if (nfcAdapter != null) {
 					return nfcAdapter.isEnabled();
 				}
@@ -55,11 +60,18 @@ public class NFCProfilePreferencesActivity extends PreferenceActivity {
 
 			protected void onPostExecute(Boolean enabled) {
 				if (!enabled) {
-					AlertDialog.Builder nfcDisabledDialogBuilder = new AlertDialog.Builder(
+					CustomDialog.Builder nfcDisabledDialogBuilder = new CustomDialog.Builder(
 							NFCProfilePreferencesActivity.this);
+					TextView nfcDisabledMessage = new TextView(
+							NFCProfilePreferencesActivity.this);
+					nfcDisabledMessage.setTextAppearance(
+							NFCProfilePreferencesActivity.this,
+							R.style.text_medium);
+					nfcDisabledMessage.setText(R.string.nfc_disabled_message);
+					nfcDisabledMessage.setPadding(10, 10, 10, 10);
+					nfcDisabledDialogBuilder.setContentView(nfcDisabledMessage);
 					nfcDisabledDialogBuilder
-							.setMessage(R.string.nfc_disabled_message);
-					nfcDisabledDialogBuilder.setCancelable(true);
+							.setTitle(R.string.title_dialog_nfc_off);
 					OnClickListener onClicklistener = new OnClickListener() {
 
 						@Override
@@ -76,69 +88,108 @@ public class NFCProfilePreferencesActivity extends PreferenceActivity {
 							onClicklistener);
 					nfcDisabledDialogBuilder.setNegativeButton(R.string.no,
 							onClicklistener);
-					nfcDisabledDialogBuilder.show();
+					nfcDisabledDialogBuilder.create(
+							R.layout.custom_dialog_layout).show();
 				}
 			};
 
-		}.execute((Void[]) null);
+		}.execute((Void) null);
 
-	}
+		// populate app list for preference
+		new AsyncTask<Void, Void, SingleChoiceListPreference>() {
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.menu, menu);
-		return true;
-	}
+			@Override
+			protected SingleChoiceListPreference doInBackground(Void... params) {
+				PackageManager packageManager = getPackageManager();
+				SingleChoiceListPreference preference = (SingleChoiceListPreference) getPreferenceScreen()
+						.findPreference("external_app_package_name");
+				List<ApplicationInfo> applicationsInfos = packageManager
+						.getInstalledApplications(PackageManager.GET_META_DATA);
+				String[] applicationNames = new String[applicationsInfos.size()];
+				String[] packageNames = new String[applicationsInfos.size()];
+				for (int x = 0; x < applicationsInfos.size(); x++) {
+					applicationNames[x] = applicationsInfos.get(x)
+							.loadLabel(packageManager).toString();
+					packageNames[x] = applicationsInfos.get(x).packageName;
+				}
+				preference.setEntries(applicationNames);
+				preference.setEntryValues(packageNames);
+				return preference;
+			}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == R.id.feedback) {
-			Intent feedbackMailIntent = new Intent(Intent.ACTION_SEND);
-			feedbackMailIntent.setType("plain/text");
-			feedbackMailIntent.putExtra(Intent.EXTRA_EMAIL,
-					new String[] { getString(R.string.feedback_mail_address) });
-			feedbackMailIntent.putExtra(Intent.EXTRA_SUBJECT,
-					getString(R.string.feedback));
-			feedbackMailIntent.putExtra(Intent.EXTRA_TEXT, "\n\n"
-					+ getSystemInfo());
-			startActivity(feedbackMailIntent);
-		} else if (item.getItemId() == R.id.info) {
-			Intent infoTextIntent = new Intent(getApplicationContext(),
-					InfoActivity.class);
-			startActivity(infoTextIntent);
-		}
-		return true;
-	}
+			protected void onPostExecute(SingleChoiceListPreference result) {
+				result.init();
+			};
 
-	private String getSystemInfo() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("---------- System Info ----------");
-		builder.append("\n");
-		builder.append("OS Version: ");
-		builder.append(Build.VERSION.RELEASE);
-		builder.append("\n");
-		builder.append("OS Api Level: ");
-		builder.append(Build.VERSION.SDK_INT);
-		builder.append("\n");
-		builder.append("Manufacturer: ");
-		builder.append(Build.MANUFACTURER);
-		builder.append("\n");
-		builder.append("Model: ");
-		builder.append(Build.MODEL);
-		builder.append("\n");
-		try {
-			PackageInfo packageInfo = getPackageManager().getPackageInfo(
-					getPackageName(), PackageManager.GET_ACTIVITIES);
-			builder.append("App VersionCode: ");
-			builder.append(packageInfo.versionCode);
-			builder.append("\n");
-			builder.append("App VersionName: ");
-			builder.append(packageInfo.versionName);
-			builder.append("\n");
-		} catch (Exception e) {
-		}
-		builder.append("---------- System Info ----------");
-		return builder.toString();
+		}.execute((Void) null);
+
+		new AsyncTask<Void, Void, Boolean>() {
+
+			private final static String ASK_FOR_RATING = "askForRating";
+
+			@Override
+			protected Boolean doInBackground(Void... params) {
+				SharedPreferences sharedPreferences = getSharedPreferences(
+						getString(R.string.shared_preferences_name),
+						MODE_PRIVATE);
+				int tagWrittenCount = sharedPreferences
+						.getInt(getString(R.string.tag_written_count_preference_key),
+								0);
+				boolean askForRating = sharedPreferences.getBoolean(
+						ASK_FOR_RATING, true);
+				if (tagWrittenCount >= 3 && askForRating) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+
+			protected void onPostExecute(Boolean result) {
+				if (result) {
+					CustomDialog.Builder askForRatingDialogBuilder = new CustomDialog.Builder(
+							NFCProfilePreferencesActivity.this);
+					askForRatingDialogBuilder
+							.setTitle(R.string.title_dialog_ask_for_rating);
+					OnClickListener onClickListener = new OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+							SharedPreferences sharedPreferences = getSharedPreferences(
+									getString(R.string.shared_preferences_name),
+									MODE_PRIVATE);
+							Editor editor = sharedPreferences.edit();
+							editor.putBoolean(ASK_FOR_RATING, false);
+							editor.commit();
+							if (which == DialogInterface.BUTTON_POSITIVE) {
+								Intent marketIntent = new Intent(
+										Intent.ACTION_VIEW,
+										Uri.parse("https://market.android.com/details?id=com.blogspot.marioboehmer.nfcprofile"));
+								startActivity(marketIntent);
+							}
+
+						}
+					};
+					askForRatingDialogBuilder.setPositiveButton(R.string.yes,
+							onClickListener);
+					askForRatingDialogBuilder.setNegativeButton(R.string.no,
+							onClickListener);
+					TextView askForRatingMessage = new TextView(
+							NFCProfilePreferencesActivity.this);
+					askForRatingMessage.setTextAppearance(
+							NFCProfilePreferencesActivity.this,
+							R.style.text_medium);
+					askForRatingMessage
+							.setText(R.string.ask_for_rating_message);
+					askForRatingMessage.setPadding(10, 10, 10, 10);
+					askForRatingDialogBuilder
+							.setContentView(askForRatingMessage);
+					askForRatingDialogBuilder.create(
+							R.layout.custom_dialog_layout).show();
+
+				}
+			};
+
+		}.execute((Void) null);
 	}
 }

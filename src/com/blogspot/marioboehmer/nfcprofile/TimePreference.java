@@ -1,4 +1,4 @@
-/*   Copyright 2011 Mario Böhmer
+/*   Copyright 2012 Mario Böhmer
  *
  *   Licensed under Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0) 
  *   you may not use this file except in compliance with the License.
@@ -12,10 +12,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.os.Build;
 import android.preference.Preference;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TimePicker;
@@ -29,7 +31,7 @@ import android.widget.TimePicker;
 public class TimePreference extends Preference implements
 		TimePicker.OnTimeChangedListener {
 
-	private static final String TIME_PATTERN = "[0-2]*[0-9]:[0-5]*[0-9]";
+	private static final String TIME_PATTERN = "[0-2]*[0-9]-[0-5]*[0-9]";
 	private TimePicker timePicker;
 	private String defaultValue;
 	private String result;
@@ -54,20 +56,26 @@ public class TimePreference extends Preference implements
 		timePicker = new TimePicker(getContext());
 		timePicker.setOnTimeChangedListener(this);
 		timePicker.setIs24HourView(DateFormat.is24HourFormat(getContext()));
-		LinearLayout linearLayout = (LinearLayout) timePicker.getChildAt(0);
-		setNumberPickerBackgrounds((LinearLayout) linearLayout.getChildAt(0));
-		setNumberPickerBackgrounds((LinearLayout) linearLayout.getChildAt(1));
-		Button amPmBtn = (Button) linearLayout.getChildAt(2);
-		amPmBtn.setTextColor(getContext().getResources().getColor(
-				R.color.light_blue));
-		amPmBtn.setBackgroundDrawable(getContext().getResources().getDrawable(
-				R.drawable.button_default_selector));
+		timePicker.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT));
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+			LinearLayout linearLayout = (LinearLayout) timePicker.getChildAt(0);
+			setNumberPickerBackgrounds((LinearLayout) linearLayout
+					.getChildAt(0));
+			setNumberPickerBackgrounds((LinearLayout) linearLayout
+					.getChildAt(1));
+			Button amPmBtn = (Button) linearLayout.getChildAt(2);
+			amPmBtn.setTextColor(getContext().getResources().getColor(
+					R.color.light_blue));
+			amPmBtn.setBackgroundDrawable(getContext().getResources()
+					.getDrawable(R.drawable.button_default_selector));
+		}
 		CustomDialog.Builder builder = new CustomDialog.Builder(getContext());
 		builder.setTitle(getTitle().toString());
 		builder.setContentView(timePicker);
-		builder.setPositiveButton("OK", onClickListener);
-		builder.setNegativeButton("CANCEL", onClickListener);
-		dialog = builder.create();
+		builder.setPositiveButton(R.string.ok, onClickListener);
+		builder.setNegativeButton(R.string.cancel, onClickListener);
+		dialog = builder.create(R.layout.custom_dialog_layout);
 	}
 
 	private void setNumberPickerBackgrounds(LinearLayout numberPicker) {
@@ -104,7 +112,7 @@ public class TimePreference extends Preference implements
 			switch (which) {
 			case DialogInterface.BUTTON_POSITIVE:
 				timePicker.clearFocus();
-				result = timePicker.getCurrentHour() + ":"
+				result = timePicker.getCurrentHour() + "-"
 						+ timePicker.getCurrentMinute();
 				persistString(result);
 				callChangeListener(result);
@@ -129,7 +137,7 @@ public class TimePreference extends Preference implements
 			return -1;
 		}
 
-		return Integer.valueOf(time.split(":|/")[0]);
+		return Integer.valueOf(time.split("-|/")[0]);
 	}
 
 	/**
@@ -143,6 +151,6 @@ public class TimePreference extends Preference implements
 			return -1;
 		}
 
-		return Integer.valueOf(time.split(":|/")[1]);
+		return Integer.valueOf(time.split("-|/")[1]);
 	}
 }
