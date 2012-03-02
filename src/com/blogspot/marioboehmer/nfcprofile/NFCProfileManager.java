@@ -32,6 +32,8 @@ import com.blogspot.marioboehmer.nfcprofile.profile.ProfileHelper;
  * @author Mario Boehmer
  */
 public class NFCProfileManager extends Activity {
+	private BluetoothAdapter bluetoothAdapter = BluetoothAdapter
+			.getDefaultAdapter();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +80,6 @@ public class NFCProfileManager extends Activity {
 						}
 					}
 					if (profile.isToggleBluetoothEnabled()) {
-						BluetoothAdapter bluetoothAdapter = BluetoothAdapter
-								.getDefaultAdapter();
 						if (bluetoothAdapter != null) {
 							if (bluetoothAdapter.isEnabled()) {
 								bluetoothAdapter.disable();
