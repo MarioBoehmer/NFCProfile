@@ -12,14 +12,10 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.os.Build;
 import android.preference.Preference;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
-import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TimePicker;
 
 /**
@@ -58,36 +54,12 @@ public class TimePreference extends Preference implements
 		timePicker.setIs24HourView(DateFormat.is24HourFormat(getContext()));
 		timePicker.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT));
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-			LinearLayout linearLayout = (LinearLayout) timePicker.getChildAt(0);
-			setNumberPickerBackgrounds((LinearLayout) linearLayout
-					.getChildAt(0));
-			setNumberPickerBackgrounds((LinearLayout) linearLayout
-					.getChildAt(1));
-			Button amPmBtn = (Button) linearLayout.getChildAt(2);
-			amPmBtn.setTextColor(getContext().getResources().getColor(
-					R.color.light_blue));
-			amPmBtn.setBackgroundDrawable(getContext().getResources()
-					.getDrawable(R.drawable.button_default_selector));
-		}
 		CustomDialog.Builder builder = new CustomDialog.Builder(getContext());
 		builder.setTitle(getTitle().toString());
 		builder.setContentView(timePicker);
 		builder.setPositiveButton(R.string.ok, onClickListener);
 		builder.setNegativeButton(R.string.cancel, onClickListener);
 		dialog = builder.create(R.layout.custom_dialog_layout);
-	}
-
-	private void setNumberPickerBackgrounds(LinearLayout numberPicker) {
-		View incButton = numberPicker.getChildAt(0);
-		View editText = numberPicker.getChildAt(1);
-		View decButton = numberPicker.getChildAt(2);
-		incButton.setBackgroundDrawable(getContext().getResources()
-				.getDrawable(R.drawable.button_timepicker_up_selector));
-		editText.setBackgroundDrawable(getContext().getResources().getDrawable(
-				R.drawable.edittext_timepicker_input_selector));
-		decButton.setBackgroundDrawable(getContext().getResources()
-				.getDrawable(R.drawable.button_timepicker_down_selector));
 	}
 
 	public void onTimeChanged(TimePicker view, int hour, int minute) {
